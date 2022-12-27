@@ -8,7 +8,7 @@ const cart = mongoose.model(
             ref: 'Product'
         },
         qty: {
-            type: String,
+            type: Number,
         }
     },
     )
