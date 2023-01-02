@@ -1,6 +1,7 @@
 const categoryController = require('../controller/categories.controller');
 const productController = require('../controller/products.controller');
 const cartController = require('../controller/cart.controller');
+const userController = require('../controller/user.controller');
 const express = require('express');
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.get('/product', productController.findAll);
 router.post('/cart', cartController.create);
 router.get('/cart', cartController.findAll);
 router.post('/cart/delete', cartController.delete);
+
+router.post('/user', userController.create);
 
 module.exports = router;

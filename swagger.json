@@ -23,6 +23,10 @@
         {
             "name": "Cart",
             "description": "Cart API"
+        },
+        {
+            "name": "User",
+            "description": "User API"
         }
     ],
     "schemes": ["http"],
@@ -269,6 +273,58 @@
                         "name": "_id",
                         "in": "formData",
                         "description": "_id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ServiceResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create User API",
+                "parameters": [
+                    {
+                        "name": "fullName",
+                        "in": "formData",
+                        "description": "fullName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "formData",
+                        "description": "country",
+                        "type": "string"
+                    },
+                    {
+                        "name": "countryCode",
+                        "in": "formData",
+                        "description": "countryCode",
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "formData",
+                        "description": "phone",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password",
                         "type": "string"
                     }
                 ],
