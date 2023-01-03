@@ -1,6 +1,15 @@
-const { user } = require('../models/user.model');
+const user = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 
-exports.create = async (req, res, next) => {
+const maxAge = 3*24*60*60;
+
+const createToken = (id) => {
+    return jwt.sign({ id }, 'jsonwebtokenJWTsecretKEY', {
+        expiresIn: maxAge,
+    });
+};
+
+exports.create = async (req, res) => {
 
     const data = req.body;
     const newData = new user();
@@ -19,4 +28,19 @@ exports.create = async (req, res, next) => {
 
     await newData.save();
     return res.status(201).json(newData);
+};
+
+exports.login = async (req, res) => {
+    const data = req.body;
+    const email = data.email;
+    const password = data.password;
+
+    const findUser = await user.login(email, password);
+    const token = createToken(findUser._id);
+        res.cookie('jwt', token, {
+            withCredentials: true,
+            httpOnly: false,
+            maxAge: maxAge*1000,
+        });
+    return res.status(201).json({ user: findUser, token });
 };

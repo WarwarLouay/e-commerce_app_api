@@ -5,6 +5,7 @@ exports.create = async (req, res, next) => {
     const data = req.body;
     const newData = new cart();
 
+    newData.user = data.user;
     newData.productId = data.productId;
     newData.qty = data.qty;
 
@@ -13,7 +14,7 @@ exports.create = async (req, res, next) => {
 };
 
 exports.findAll = async (req, res, next) => {
-    const cat = await cart.find().populate('productId').exec();
+    const cat = await cart.find({user: req.body.user}).populate('productId').exec();
     return res.status(201).json(cat);
 };
 

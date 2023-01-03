@@ -15,9 +15,10 @@ router.post('/product', productController.create);
 router.get('/product', productController.findAll);
 
 router.post('/cart', cartController.create);
-router.get('/cart', cartController.findAll);
+router.post('/cart/get', cartController.findAll);
 router.post('/cart/delete', cartController.delete);
 
 router.post('/user', userController.create);
+router.post('/user/login', userController.login);
 
 module.exports = router;
