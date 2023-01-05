@@ -3,6 +3,7 @@ const productController = require('../controller/products.controller');
 const cartController = require('../controller/cart.controller');
 const userController = require('../controller/user.controller');
 const favoriteController = require('../controller/favorite.controller');
+const shippingController = require('../controller/shippingAddress.controller');
 const express = require('express');
 const router = express.Router();
 
@@ -21,6 +22,8 @@ router.post('/cart/delete', cartController.delete);
 
 router.post('/favorite', favoriteController.create);
 router.post('/favorite/get', favoriteController.findAll);
+
+router.post('/shipping/get', shippingController.findAll);
 
 router.post('/user', userController.create);
 router.post('/user/login', userController.login);

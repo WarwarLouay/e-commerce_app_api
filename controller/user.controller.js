@@ -1,4 +1,5 @@
 const user = require('../models/user.model');
+const shippingAddress = require('../models/shippingAddress.model');
 const jwt = require('jsonwebtoken');
 
 const maxAge = 3*24*60*60;
@@ -27,6 +28,11 @@ exports.create = async (req, res) => {
     }
 
     await newData.save();
+
+    const newShipping = new shippingAddress();
+    newShipping.user = newData._id;
+    await newShipping.save();
+
     return res.status(201).json(newData);
 };
 
