@@ -24,6 +24,7 @@ router.post('/cart/delete', cartController.delete);
 router.post('/favorite', favoriteController.create);
 router.post('/favorite/get', favoriteController.findAll);
 
+router.post('/shipping', shippingController.update);
 router.post('/shipping/get', shippingController.findAll);
 
 router.post('/order', orderController.create);
