@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
 const { MONGO_DB_CONFIG } = require('./config/app.config');
@@ -16,6 +18,12 @@ mongoose.connect(MONGO_DB_CONFIG.DB, {
 });
 
 app.use(express.json());
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST'],
+    credentials: true,
+}));
+app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
 app.use('/api', require('./routes/app.routes'));
 app.use(errors.errorHandler);

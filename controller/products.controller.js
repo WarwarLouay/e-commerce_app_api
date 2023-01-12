@@ -27,3 +27,18 @@ exports.findAll = async (req, res, next) => {
     const cat = await product.find().exec();
     return res.status(201).json(cat);
 };
+
+exports.delete = async (req, res, next) => {
+    await product.findByIdAndDelete(req.body.id).exec();
+    return res.status(201).json({message: 'deleted'});
+};
+
+exports.update = async (req, res, next) => {
+    const data = req.body;
+    await product.findOneAndUpdate({_id: data.selectedProductId}, 
+        {$set: { productName: data.selectedProductName,
+                productPrice: data.selectedProductPrice,
+                productDescription: data.selectedProductDescription}},
+        {upsert: true}).exec();
+    return res.status(201).json({message: 'updated'});
+};

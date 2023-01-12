@@ -5,6 +5,9 @@ const userController = require('../controller/user.controller');
 const favoriteController = require('../controller/favorite.controller');
 const shippingController = require('../controller/shippingAddress.controller');
 const orderController = require('../controller/order.controller');
+const adminController = require('../controller/admin.controller');
+const { checkUser } = require('../middleware/adminAuth');
+
 const express = require('express');
 const router = express.Router();
 
@@ -16,6 +19,7 @@ router.delete('/category/:id', categoryController.delete);
 
 router.post('/product', productController.create);
 router.get('/product', productController.findAll);
+router.post('/product/delete', productController.delete);
 
 router.post('/cart', cartController.create);
 router.post('/cart/get', cartController.findAll);
@@ -32,5 +36,8 @@ router.post('/order/get', orderController.findAll);
 
 router.post('/user', userController.create);
 router.post('/user/login', userController.login);
+
+router.post('/admin/login', adminController.login);
+router.post('/admin', checkUser);
 
 module.exports = router;
