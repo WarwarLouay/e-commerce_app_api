@@ -11,29 +11,29 @@ exports.create = (req, res, next) => {
             const data = req.body;
             const newData = new product();
 
-            newData.categoryId = data.categoryId;
+            newData.categoryId = data.category;
             newData.productName = data.productName;
             newData.productDescription = data.productDescription;
             newData.productPrice = data.productPrice;
             newData.productImage = path != '' ? '/' + path : '';
 
             await newData.save();
-            return res.status(201).json(newData);
+            return res.status(201).json({message: 'added', newData});
         }
     });
 };
 
-exports.findAll = async (req, res, next) => {
-    const cat = await product.find().exec();
+exports.findAll = async (req, res) => {
+    const cat = await product.find().populate('categoryId').exec();
     return res.status(201).json(cat);
 };
 
-exports.delete = async (req, res, next) => {
+exports.delete = async (req, res) => {
     await product.findByIdAndDelete(req.body.id).exec();
     return res.status(201).json({message: 'deleted'});
 };
 
-exports.update = async (req, res, next) => {
+exports.update = async (req, res) => {
     const data = req.body;
     await product.findOneAndUpdate({_id: data.selectedProductId}, 
         {$set: { productName: data.selectedProductName,

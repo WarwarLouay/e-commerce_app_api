@@ -20,6 +20,7 @@ router.delete('/category/:id', categoryController.delete);
 router.post('/product', productController.create);
 router.get('/product', productController.findAll);
 router.post('/product/delete', productController.delete);
+router.post('/product/update', productController.update);
 
 router.post('/cart', cartController.create);
 router.post('/cart/get', cartController.findAll);
