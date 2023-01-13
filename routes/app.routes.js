@@ -33,7 +33,9 @@ router.post('/shipping', shippingController.update);
 router.post('/shipping/get', shippingController.findAll);
 
 router.post('/order', orderController.create);
-router.post('/order/get', orderController.findAll);
+router.get('/order/getall', orderController.findAll);
+router.post('/order/get', orderController.findAllByUser);
+router.post('/order/delete', orderController.delete);
 
 router.post('/user', userController.create);
 router.get('/user', userController.findAll);
