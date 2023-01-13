@@ -16,12 +16,12 @@ exports.create = (req, res, next) => {
             newData.categoryImage = path != '' ? '/' + path : '';
 
             await newData.save();
-            return res.status(201).json(newData);
+            return res.status(201).json({message: 'added', newData});
         }
     });
 };
 
-exports.findAll = async (req, res, next) => {
+exports.findAll = async (req, res) => {
     const cat = await category.find().exec();
     return res.status(201).json(cat);
 };
@@ -59,7 +59,7 @@ exports.update = (req, res, next) => {
     });
 };
 
-exports.delete = async (req, res, next) => {
-    const cat = await category.findByIdAndDelete(req.params.id).exec();
-    return res.status(201).json(cat);
+exports.delete = async (req, res) => {
+    await category.findByIdAndDelete(req.body.id).exec();
+    return res.status(201).json({message: 'deleted'});
 };

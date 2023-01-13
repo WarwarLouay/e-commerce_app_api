@@ -17,7 +17,7 @@ const product = mongoose.model(
             type: String,
         },
         productPrice: {
-            type: Number,
+            type: String,
         }
     },
     )

@@ -15,7 +15,7 @@ router.post('/category', categoryController.create);
 router.get('/category', categoryController.findAll);
 router.get('/category/:id', categoryController.findOne);
 router.put('/category/:id', categoryController.update);
-router.delete('/category/:id', categoryController.delete);
+router.post('/category/delete', categoryController.delete);
 
 router.post('/product', productController.create);
 router.get('/product', productController.findAll);
@@ -36,6 +36,8 @@ router.post('/order', orderController.create);
 router.post('/order/get', orderController.findAll);
 
 router.post('/user', userController.create);
+router.get('/user', userController.findAll);
+router.post('/user/delete', userController.delete);
 router.post('/user/login', userController.login);
 
 router.post('/admin/login', adminController.login);

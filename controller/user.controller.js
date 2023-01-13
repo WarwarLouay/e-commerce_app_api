@@ -50,3 +50,13 @@ exports.login = async (req, res) => {
         });
     return res.status(201).json({ user: findUser, token });
 };
+
+exports.findAll = async (req, res) => {
+    const users = await user.find().exec();
+    return res.status(201).json(users);
+};
+
+exports.delete = async (req, res) => {
+    await user.findByIdAndDelete(req.body.id).exec();
+    return res.status(201).json({message: 'deleted'});
+};
