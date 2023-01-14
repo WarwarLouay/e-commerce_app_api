@@ -36,6 +36,9 @@ router.post('/order', orderController.create);
 router.get('/order/getall', orderController.findAll);
 router.post('/order/get', orderController.findAllByUser);
 router.post('/order/delete', orderController.delete);
+router.get('/order/:id', orderController.findOneById);
+router.post('/order/accept', orderController.acceptOrder);
+router.post('/order/reject', orderController.rejectOrder);
 
 router.post('/user', userController.create);
 router.get('/user', userController.findAll);

@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-    const users = await user.find().exec();
+    const users = await user.find().sort({ "$natural": -1 }).exec();
     return res.status(201).json(users);
 };
 

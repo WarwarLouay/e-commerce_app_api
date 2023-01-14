@@ -24,7 +24,7 @@ exports.create = (req, res, next) => {
 };
 
 exports.findAll = async (req, res) => {
-    const cat = await product.find().populate('categoryId').exec();
+    const cat = await product.find().populate('categoryId').sort({ "$natural": -1 }).exec();
     return res.status(201).json(cat);
 };
 

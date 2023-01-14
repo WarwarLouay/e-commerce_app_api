@@ -19,6 +19,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res, next) => {
-    const cat = await favotite.find({user: req.body.user}).populate('product').exec();
+    const cat = await favotite.find({user: req.body.user}).populate('product').sort({ "$natural": -1 }).exec();
     return res.status(201).json(cat);
 };

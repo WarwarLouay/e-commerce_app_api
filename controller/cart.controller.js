@@ -14,7 +14,7 @@ exports.create = async (req, res, next) => {
 };
 
 exports.findAll = async (req, res, next) => {
-    const cat = await cart.find({user: req.body.user}).populate('productId').exec();
+    const cat = await cart.find({user: req.body.user}).populate('productId').sort({ "$natural": -1 }).exec();
     return res.status(201).json(cat);
 };
 

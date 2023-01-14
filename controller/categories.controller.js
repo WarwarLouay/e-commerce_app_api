@@ -22,7 +22,7 @@ exports.create = (req, res, next) => {
 };
 
 exports.findAll = async (req, res) => {
-    const cat = await category.find().exec();
+    const cat = await category.find().sort({ "$natural": -1 }).exec();
     return res.status(201).json(cat);
 };
 

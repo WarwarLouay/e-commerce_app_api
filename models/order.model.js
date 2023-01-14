@@ -23,6 +23,10 @@ const order = new mongoose.Schema({
     },
     date: {
         type: Date,
+    },
+    status: {
+        type: String,
+        default: '0'
     }
 },
 );
