@@ -42,3 +42,8 @@ exports.update = async (req, res) => {
         {upsert: true}).exec();
     return res.status(201).json({message: 'updated'});
 };
+
+exports.findByCategory = async (req, res) => {
+    const pro = await product.find({categoryId: req.params.id}).sort({ "$natural": -1 }).exec();
+    return res.status(201).json(pro);
+};
