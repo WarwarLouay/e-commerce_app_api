@@ -1,7 +1,7 @@
-const admin = require('../models/admin.model');
+const user = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 
-module.exports.checkAdmin = (req, res, next) => {
+module.exports.checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
     if(token){
         jwt.verify(token, 'jsonwebtokenJWTsecretKEY', async (err, decodedToken) => {
@@ -9,9 +9,9 @@ module.exports.checkAdmin = (req, res, next) => {
                 res.json({ status: false });
                 next();
             }else{
-                const user = await admin.findById(decodedToken.id);
-                if(user){
-                    res.json({ status: true, user: user.username, });
+                const u = await user.findById(decodedToken.id);
+                if(u){
+                    res.json({ status: true, user: u.email, });
                 }else{
                     res.json({ status: false });
                     next();

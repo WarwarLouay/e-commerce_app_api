@@ -6,7 +6,8 @@ const favoriteController = require('../controller/favorite.controller');
 const shippingController = require('../controller/shippingAddress.controller');
 const orderController = require('../controller/order.controller');
 const adminController = require('../controller/admin.controller');
-const { checkUser } = require('../middleware/adminAuth');
+const { checkAdmin } = require('../middleware/adminAuth');
+const { checkUser } = require('../middleware/userAuth');
 
 const express = require('express');
 const router = express.Router();
@@ -45,8 +46,9 @@ router.post('/user', userController.create);
 router.get('/user', userController.findAll);
 router.post('/user/delete', userController.delete);
 router.post('/user/login', userController.login);
+router.post('/user/auth', checkUser);
 
 router.post('/admin/login', adminController.login);
-router.post('/admin', checkUser);
+router.post('/admin', checkAdmin);
 
 module.exports = router;
