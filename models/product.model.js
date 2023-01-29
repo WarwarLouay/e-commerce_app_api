@@ -18,7 +18,11 @@ const product = mongoose.model(
         },
         productPrice: {
             type: String,
-        }
+        },
+        usersFavorite: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     },
     )
 );

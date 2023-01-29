@@ -1,4 +1,5 @@
 const favotite = require('../models/favorite.model');
+const {product} = require('../models/product.model');
 
 exports.create = async (req, res) => {
 
@@ -15,10 +16,18 @@ exports.create = async (req, res) => {
         await newData.save();
     }
 
-    return res.status(201).json(newData);
+    let prod = await product.findOne({_id: req.body.product}).exec();
+    if(prod.usersFavorite.includes(req.body.user)) {
+        prod.usersFavorite.remove(req.body.user);
+    } else {
+        prod.usersFavorite.push(req.body.user);
+    }
+    await prod.save();
+
+    return res.status(201).json(prod);
 };
 
 exports.findAll = async (req, res, next) => {
-    const cat = await favotite.find({user: req.body.user}).populate('product').sort({ "$natural": -1 }).exec();
+    const cat = await favotite.find({user: req.body.user}).populate('product').populate('user').sort({ "$natural": -1 }).exec();
     return res.status(201).json(cat);
 };
