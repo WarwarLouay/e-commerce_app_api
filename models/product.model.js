@@ -7,10 +7,16 @@ const product = mongoose.model(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category'
         },
-        productName: {
+        productEngName: {
             type: String,
         },
-        productDescription: {
+        productArName: {
+            type: String,
+        },
+        productEngDescription: {
+            type: String,
+        },
+        productArDescription: {
             type: String,
         },
         productImage: {

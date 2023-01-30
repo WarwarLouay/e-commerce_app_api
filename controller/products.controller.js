@@ -12,8 +12,10 @@ exports.create = (req, res, next) => {
             const newData = new product();
 
             newData.categoryId = data.category;
-            newData.productName = data.productName;
-            newData.productDescription = data.productDescription;
+            newData.productEngName = data.productEngName;
+            newData.productArName = data.productArName;
+            newData.productEngDescription = data.productEngDescription;
+            newData.productArDescription = data.productArDescription;
             newData.productPrice = data.productPrice;
             newData.productImage = path != '' ? '/' + path : '';
 

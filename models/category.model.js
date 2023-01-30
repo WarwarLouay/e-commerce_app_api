@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const category = mongoose.model(
     'Category',
     mongoose.Schema({
-        categoryName: {
+        categoryEngName: {
+            type: String,
+        },
+        categoryArName: {
             type: String,
         },
         categoryImage: {

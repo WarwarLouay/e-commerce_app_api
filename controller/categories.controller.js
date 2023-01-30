@@ -12,7 +12,8 @@ exports.create = (req, res, next) => {
             const data = req.body;
             const newData = new category();
 
-            newData.categoryName = data.categoryName;
+            newData.categoryEngName = data.categoryEngName;
+            newData.categoryArName = data.categoryArName;
             newData.categoryImage = path != '' ? '/' + path : '';
 
             await newData.save();
