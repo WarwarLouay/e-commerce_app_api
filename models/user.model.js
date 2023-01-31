@@ -19,6 +19,10 @@ const user = new mongoose.Schema({
         },
         password: {
             type: String,
+        },
+        withGoogle: {
+            type: String,
+            default: 'false'
         }
     },
     );
