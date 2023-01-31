@@ -17,23 +17,21 @@ exports.create = async (req, res) => {
 
     newData.fullName = data.fullName;
     newData.email = data.email;
-    newData.country = data.country;
-    newData.countryCode = data.countryCode;
     newData.phone = data.phone;
     newData.password = data.password;
 
     let count = await user.countDocuments({ email: newData.email }).exec();
     if (count > 0) {
         return res.status(200).json({ message: 'Email already exist' });
+    } else {
+        await newData.save();
+
+        const newShipping = new shippingAddress();
+        newShipping.user = newData._id;
+        await newShipping.save();
+
+        return res.status(201).json(newData);
     }
-
-    await newData.save();
-
-    const newShipping = new shippingAddress();
-    newShipping.user = newData._id;
-    await newShipping.save();
-
-    return res.status(201).json(newData);
 };
 
 exports.login = async (req, res) => {
@@ -86,7 +84,7 @@ exports.loginWithGoogle = async (req, res) => {
         const newShipping = new shippingAddress();
         newShipping.user = newData._id;
         await newShipping.save();
-        
+
         return res.status(201).json({ message: 'created' });
     }
 };

@@ -10,9 +10,11 @@ const user = new mongoose.Schema({
         },
         country: {
             type: String,
+            default: 'Lebanon'
         },
         countryCode: {
             type: String,
+            default: '+961'
         },
         phone: {
             type: String,
