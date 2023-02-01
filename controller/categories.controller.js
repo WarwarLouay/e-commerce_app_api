@@ -41,7 +41,7 @@ exports.update = (req, res, next) => {
 
             var model = {
                 categoryId: req.params.id,
-                categoryName: req.body.categoryName,
+                categoryEngName: req.body.categoryEngName,
                 categorydescription: req.body.categorydescription,
                 categoryImage: path != '' ? '/' + path : '',
             };
