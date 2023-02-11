@@ -8,6 +8,7 @@ exports.create = async (req, res) => {
     newData.user = data.user;
     newData.productId = data.productId;
     newData.qty = data.qty;
+    newData.size = data.size;
 
     await newData.save();
     return res.status(201).json(newData);

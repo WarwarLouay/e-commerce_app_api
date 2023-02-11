@@ -20,6 +20,7 @@ router.post('/category/delete', categoryController.delete);
 
 router.post('/product', productController.create);
 router.get('/product', productController.findAll);
+router.get('/product/:id', productController.findOneById);
 router.post('/product/delete', productController.delete);
 router.post('/product/update', productController.update);
 router.get('/product/category/:id', productController.findByCategory);

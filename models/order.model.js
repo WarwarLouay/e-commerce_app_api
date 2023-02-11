@@ -16,6 +16,9 @@ const order = new mongoose.Schema({
         },
         qty: {
             type: String
+        },
+        size: {
+            type: String
         }
     }],
     total: {

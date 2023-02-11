@@ -1,5 +1,5 @@
 const MONGO_DB_CONFIG = {
-    DB: 'mongodb://localhost/e-commerce-app',
+    DB: 'mongodb://127.0.0.1/bp-shop',
     PAGE_SIZE: 10
 };
 

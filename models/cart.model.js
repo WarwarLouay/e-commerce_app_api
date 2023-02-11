@@ -13,6 +13,9 @@ const cart = mongoose.model(
         },
         qty: {
             type: Number,
+        },
+        size: {
+            type: String,
         }
     },
     )
