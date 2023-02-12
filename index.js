@@ -27,7 +27,11 @@ mongoose
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://warwarlouay.github.io/bp-shop-web-app/",
+    ],
     methods: ["GET", "POST"],
     credentials: true,
   })
