@@ -10,6 +10,7 @@ const swaggerUi = require("swagger-ui-express"),
   swaggerDocument = require("./swagger.json");
 
 mongoose.Promise = global.Promise;
+mongoose.set('strictQuery', false);
 mongoose
   .connect(MONGO_DB_CONFIG.DB, {
     useNewUrlParser: true,
