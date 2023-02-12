@@ -28,8 +28,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "http://http://localhost:3000/",
-      "http://http://localhost:3001/",
+      "http://localhost:3000/",
+      "http://localhost:3001/",
       "https://warwarlouay.github.io/",
     ],
     methods: ["GET", "POST"],
