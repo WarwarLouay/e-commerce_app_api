@@ -15,6 +15,34 @@ exports.create = async (req, res) => {
   await newData.save();
   await cart.deleteMany({ user: data.user }).exec();
 
+  const orderDetail = await order
+    .findById(newData._id)
+    .populate("user")
+    .populate("shipping")
+    .populate({
+      path: "product",
+      populate: "product",
+    })
+    .exec();
+
+  const products = orderDetail.product.map((ord) => {
+    let imageSrc = `https://smiling-coveralls-crow.cyclic.app/${ord.product.productImage}`
+    return (
+      '<tr>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      `<img style="width: 100px" src=${imageSrc} />` +
+      '<p>' + ord.product.productEngName + '</p>' +
+      '</td>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      ord.qty +
+      '</td>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '$' + ord.product.productPrice +
+      '</td>' +
+      '</tr>'
+    );
+  });
+
   let mailTransporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -28,7 +56,65 @@ exports.create = async (req, res) => {
     from: "tt5612659@gmail.com",
     to: data.email,
     subject: "Order",
-    text: "We have recieved your order, it may take about 5 days to deliver your order. You can check the status of your order by entering the orders page on the application or website.",
+    html:
+      '<table style="border: 1px solid #333; width: 100%; border-collapse: collapse;">' +
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Product</th>' +
+      '<th style="border: 1px solid #333;">Quantity</th>' +
+      '<th style="border: 1px solid #333;">Price</th>' +
+      '</tr>' +
+      products +
+      '</table>' + 
+
+      '<div style="width: 100%; text-align: end">' +
+      '<b>Total: </b>' + '$' + orderDetail.total +
+      '</div>' +
+
+      '<h4>Shipping Address</h4>' +
+
+      '<table style="border: 1px solid #333; width: 100%; border-collapse: collapse;">' +
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Full Name</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.user.fullName + '</p>' +
+      '</td>' +
+      '</tr>' +
+
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Email</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.user.email + '</p>' +
+      '</td>' +
+      '</tr>' +
+
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Phone</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.user.phone + '</p>' +
+      '</td>' +
+      '</tr>' +
+
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Address</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.shipping.Address + '</p>' +
+      '</td>' +
+      '</tr>' +
+
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Street</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.shipping.Street + '</p>' +
+      '</td>' +
+      '</tr>' +
+
+      '<tr>' +
+      '<th style="border: 1px solid #333;">Building</th>' +
+      '<td style="text-align: center; border: 1px solid #333;">' +
+      '<p>' + orderDetail.shipping.Building + '</p>' +
+      '</td>' +
+      '</tr>' +
+      '</table>'
   };
 
   mailTransporter.sendMail(details, (err) => {
