@@ -145,6 +145,37 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+exports.resendCode = async (req, res) => {
+  const data = req.body;
+  const email = data.email;
+
+  let mailTransporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "tt5612659@gmail.com",
+      pass: "ypiskgvroikhzaiz",
+    },
+    tls: { rejectUnauthorized: false },
+  });
+
+  verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+  let details = {
+    from: "tt5612659@gmail.com",
+    to: email,
+    subject: "Verification Code",
+    text: "Your verification code is: " + verificationCode,
+  };
+
+  mailTransporter.sendMail(details, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Mail sent.");
+    }
+  });
+};
+
 exports.verifyCode = async (req, res) => {
   const data = req.body;
   const code = data.code;

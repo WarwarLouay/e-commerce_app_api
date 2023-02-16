@@ -51,6 +51,7 @@ router.post("/user/google/login", userController.loginWithGoogle);
 router.post("/user/forgotpassword", userController.forgotPassword);
 router.post("/user/verifycode", userController.verifyCode);
 router.post("/user/changepassword", userController.changePassword);
+router.post("/user/resendcode", userController.resendCode);
 router.post("/user/auth", checkUser);
 
 router.post("/admin/login", adminController.login);
