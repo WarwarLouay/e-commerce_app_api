@@ -139,7 +139,7 @@ exports.forgotPassword = async (req, res) => {
       }
     });
 
-    return res.status(201).json({ message: "find" });
+    return res.status(201).json({ verificationCode, message: "find" });
   } else {
     return res.status(200).json({ message: "not find" });
   }
@@ -175,6 +175,7 @@ exports.resendCode = async (req, res) => {
       console.log("Mail sent.");
     }
   });
+  return res.status(201).json({ verificationCode, message: "sent" });
 };
 
 exports.verifyCode = async (req, res) => {
@@ -182,7 +183,7 @@ exports.verifyCode = async (req, res) => {
   const code = data.code;
 
   if (code === verificationCode) {
-    return res.status(201).json({ message: "true" });
+    return res.status(201).json({ verificationCode, message: "true" });
   } else {
     return res.status(200).json({ message: "false" });
   }
