@@ -48,6 +48,9 @@ router.get("/user", userController.findAll);
 router.post("/user/delete", userController.delete);
 router.post("/user/login", userController.login);
 router.post("/user/google/login", userController.loginWithGoogle);
+router.post("/user/forgotpassword", userController.forgotPassword);
+router.post("/user/verifycode", userController.verifyCode);
+router.post("/user/changepassword", userController.changePassword);
 router.post("/user/auth", checkUser);
 
 router.post("/admin/login", adminController.login);

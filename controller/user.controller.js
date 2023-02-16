@@ -1,8 +1,11 @@
 const user = require("../models/user.model");
 const shippingAddress = require("../models/shippingAddress.model");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
 
 const maxAge = 3 * 24 * 60 * 60;
+let verificationCode;
 
 const createToken = (id) => {
   return jwt.sign({ id }, "jsonwebtokenJWTsecretKEY", {
@@ -102,4 +105,74 @@ const saveAccount = async (req, res) => {
 
   await newData.save();
   console.log("hello");
+};
+
+exports.forgotPassword = async (req, res) => {
+  const data = req.body;
+  const email = data.email;
+
+  const response = await user.findOne({ email: email }).exec();
+  if (response) {
+    let mailTransporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "tt5612659@gmail.com",
+        pass: "ypiskgvroikhzaiz",
+      },
+      tls: { rejectUnauthorized: false },
+    });
+
+    verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    let details = {
+      from: "tt5612659@gmail.com",
+      to: data.email,
+      subject: "Verification Code",
+      text: "Your verification code is: " + verificationCode,
+    };
+
+    mailTransporter.sendMail(details, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Mail sent.");
+      }
+    });
+
+    return res.status(201).json({ message: "find" });
+  } else {
+    return res.status(200).json({ message: "not find" });
+  }
+};
+
+exports.verifyCode = async (req, res) => {
+  const data = req.body;
+  const code = data.code;
+
+  if (code === verificationCode) {
+    return res.status(201).json({ message: "true" });
+  } else {
+    return res.status(200).json({ message: "false" });
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  const data = req.body;
+  const email = data.email;
+
+  const salt = await bcrypt.genSalt();
+  const password = await bcrypt.hash(data.password, salt);
+
+  await user
+    .findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          password: password,
+        },
+      },
+      { upsert: true }
+    )
+    .exec();
+  return res.status(201).json({ message: "updated" });
 };
