@@ -158,7 +158,8 @@ exports.resendCode = async (req, res) => {
     tls: { rejectUnauthorized: false },
   });
 
-  verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+  let newVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+  verificationCode = newVerificationCode
 
   let details = {
     from: "tt5612659@gmail.com",
